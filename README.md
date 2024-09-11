@@ -39,3 +39,18 @@ dalias --help
 sudo rm /usr/bin/dalias
 rm -r ~/.dalias
 ```
+
+## WARNING!
+
+For security reasons, **DO NOT** add your user to `docker` group. An attacker
+can escalate privileges in a system using an user account in `docker` group
+as easy as run the command below:
+
+```console
+docker run --rm -it -v /:/root/host bitnami/minideb:bullseye chroot /root/host
+```
+
+Instead, you can configure Docker rootless for your user. Please, read the
+following documentation:
+
+- <https://docs.docker.com/engine/security/rootless/>
