@@ -62,6 +62,7 @@ EXAMPLES
   $ dalias node='node:20-alpine node "\$@"'
   $ dalias yarnd='&node:20-alpine yarn "\$@"'  # Run in background mode
   $ dalias php='php:8.2-cli "\$@"'
+  $ dalias php-server='-p\${1-8000}:\${1-8000} php:8.2-cli-alpine php -S 0.0.0.0:\${1-8000}'
 :EOF
 }
 
@@ -121,7 +122,7 @@ function delete_alias() {
 }
 
 function set_alias() {
-    local regex='^[a-zA-Z0-9_\-\.]+$'
+    local regex='^[a-zA-Z0-9_\.-]+$'
     IFS='=' read -e name value <<< "$@"
 
     if ! [[ "$name" =~ $regex ]]; then
