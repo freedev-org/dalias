@@ -1,5 +1,5 @@
 DOCKERFILE_LIST = $(wildcard docker/*.dockerfile)
-DOCKERHUB_USER = Silva97
+DOCKERHUB_USER = silva97
 
 
 .PHONY: default
@@ -18,7 +18,7 @@ build-all: $(DOCKERFILE_LIST)
 .PHONY: push-all
 push-all:
 	@for dockerfile in $(DOCKERFILE_LIST); do \
-		docker push "$(DOCKERHUB_USER)/$$(basename -s .dockerfile $$dockerfile):latest"; \
+		docker push "docker.io/$(DOCKERHUB_USER)/$$(basename -s .dockerfile $$dockerfile):latest"; \
 	done
 
 
