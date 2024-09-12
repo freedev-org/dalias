@@ -1,5 +1,5 @@
 DOCKERFILE_LIST = $(wildcard docker/*.dockerfile)
-DOCKERHUB_USER = silva97
+DOCKERHUB_USER = freedevorg
 
 
 .PHONY: default
