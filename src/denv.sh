@@ -3,6 +3,7 @@
 CONFIG_DIR=~/.dalias
 BIN_DIR="$CONFIG_DIR/bin"
 VOLUMES_DIR="$CONFIG_DIR/volumes"
+DEFAULT_VOLUME_PATH="/root/host"
 
 
 function show_help() {
@@ -19,11 +20,31 @@ EXAMPLE
   \$ denv create sandbox
   \$ sandbox bash
 
+SHORTCUTS
+  After create a new environment, a shortcut script is created to easy run a
+  command inside the environemnt's container. For instance, if the
+  environment is named "myenv", then:
+
+    $ myenv bash
+
+  Will open a bash terminal inside the container. Or:
+
+    $ myenv cat /etc/hosts
+
+  Will run a specific command inside the container and exit.
+
+  Note: To be able to use these shortcuts, ensure that the following directory
+  is in your PATH environment variable:
+    $BIN_DIR
+
 COMMANDS
   create [options] <name>
                     Create a new environment with the given name.
 
     -v,--volume     Mount the given volume on the container.
+                    By default a volume is mounted on path "$DEFAULT_VOLUME_PATH"
+                    inside the environment's container. All the volumes can be
+                    found on "$VOLUMES_DIR" directory.
 
     -i,--image      Specify the Docker image used to create the container.
                     Default: "debian:latest".
@@ -101,6 +122,8 @@ function cmd_create() {
         $extra_flags \
         "$opt_image" \
         "cat"
+
+    mkdir -p "$BIN_DIR"
 
     {
         echo "#!/bin/sh"
