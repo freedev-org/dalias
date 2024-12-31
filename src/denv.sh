@@ -76,7 +76,7 @@ function main() {
         ps)
             cmd_ps "$@"
             ;;
-        -h|--help|help)
+        -h|--help|help|"")
             show_help
             exit 0
             ;;
