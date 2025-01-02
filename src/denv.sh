@@ -44,7 +44,15 @@ COMMANDS
     -v,--volume     Mount the given volume on the container.
                     By default a volume is mounted on path "$DEFAULT_VOLUME_PATH"
                     inside the environment's container. All the volumes can be
-                    found on "$VOLUMES_DIR" directory.
+                    found on "$VOLUMES_DIR" directory. The syntax is the same
+                    of \`--volume\` option of \`docker run\` command.
+                    i.e.:
+                        [host-path]:[container-path]:[options]
+
+    -p,--port       Bind the specified port to the host. The syntax is the same
+                    of \`--publish\` option of \`docker run\` command.
+                    i.e.:
+                        [host-port]:[container-port]
 
     -i,--image      Specify the Docker image used to create the container.
                     Default: "debian:latest".
@@ -97,6 +105,10 @@ function cmd_create() {
                 extra_flags+="-v $2 "
                 shift 1
                 ;;
+            -p|--port)
+                extra_flags+="-p $2 "
+                shift 1
+                ;;
             -i|--image)
                 opt_image="$2"
                 shift 1
@@ -117,7 +129,7 @@ function cmd_create() {
         --detach \
         --hostname "$name" \
         --workdir /root \
-        --volume "$VOLUMES_DIR/$name:/root/host" \
+        --volume "$VOLUMES_DIR/$name:$DEFAULT_VOLUME_PATH" \
         --name "denv-$name" \
         $extra_flags \
         "$opt_image" \
