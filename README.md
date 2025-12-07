@@ -71,7 +71,7 @@ denv create -i kalilinux/kali-rolling kali
 Install with one line:
 
 ```console
-curl -sSL https://fd1.in/dalias-install | sudo bash -s -- -r
+curl -sSL https://s.freedev.com.br/dalias-install | sudo bash -s -- -r
 ```
 
 To see help:
